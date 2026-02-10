@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Results</title>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<h1>Your Files Are Ready</h1>
+
+{% for key, value in results.items() %}
+<p>{{ key }} → <a href="/download/{{ value }}">Download</a></p>
+{% endfor %}
+
+<a href="/">Process Another</a>
+
+</body>
+</html>

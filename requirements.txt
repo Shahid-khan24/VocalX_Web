@@ -1,0 +1,9 @@
+Flask
+torch
+demucs
+yt-dlp
+librosa
+soundfile
+pydub
+ffmpeg-python
+numpy
