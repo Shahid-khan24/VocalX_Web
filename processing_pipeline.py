@@ -4,8 +4,8 @@ from demucs_runner import separate_stems
 from export_manager import export_outputs
 from pitch_correction import apply_pitch
 
-def process_file(path, output_type, pitch_mode):
-    stems = separate_stems(path)
+def process_file(path, output_type, pitch_mode, start_time=None, end_time=None):
+    stems = separate_stems(path, start_time, end_time)
 
     vocals = stems["vocals"]
     instrumental = stems["instrumental"]

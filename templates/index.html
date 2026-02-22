@@ -1,437 +1,571 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<title>HEIL HITLER</title>
+    <meta charset="UTF-8">
+    <title>HEIL HITLER</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Inter:wght@300;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Inter:wght@300;600&display=swap"
+        rel="stylesheet">
 
-<style>
-/* ============ GLOBAL ============ */
-body {
-    background: #000;
-    color: #fff;
-    margin: 0;
-    padding: 0;
-    font-family: "Inter", sans-serif;
-    overflow-x: hidden;
-}
+    <style>
+        /* ============ GLOBAL ============ */
+        body {
+            background: #000;
+            color: #fff;
+            margin: 0;
+            padding: 0;
+            font-family: "Inter", sans-serif;
+            overflow-x: hidden;
+        }
 
-/* Title */
-.title {
-    text-align: center;
-    margin-top: 60px;
-    font-family: "Cinzel", serif;
-    font-size: 3rem;
-    text-shadow: 0 0 18px #9b5cff;
-    animation: fadeDown 0.9s ease;
-}
+        /* Title */
+        .title {
+            text-align: center;
+            margin-top: 60px;
+            font-family: "Cinzel", serif;
+            font-size: 3rem;
+            text-shadow: 0 0 18px #9b5cff;
+            animation: fadeDown 0.9s ease;
+        }
 
-@keyframes fadeDown {
-    from { opacity: 0; transform: translateY(-30px); }
-    to   { opacity: 1; transform: translateY(0); }
-}
+        @keyframes fadeDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
 
-/* Main container */
-.container {
-    width: 90%;
-    max-width: 760px;
-    margin: 30px auto 60px;
-    padding: 24px 22px 28px;
-    background: #0b0b10;
-    border-radius: 14px;
-    border: 1px solid #242139;
-    box-shadow: 0 0 30px rgba(155,92,255,0.25);
-    animation: fadeUp 0.9s ease;
-}
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
 
-@keyframes fadeUp {
-    from { opacity: 0; transform: translateY(40px); }
-    to   { opacity: 1; transform: translateY(0); }
-}
+        /* Main container */
+        .container {
+            width: 90%;
+            max-width: 760px;
+            margin: 30px auto 60px;
+            padding: 24px 22px 28px;
+            background: #0b0b10;
+            border-radius: 14px;
+            border: 1px solid #242139;
+            box-shadow: 0 0 30px rgba(155, 92, 255, 0.25);
+            animation: fadeUp 0.9s ease;
+        }
 
-/* Upload box */
-.upload-box {
-    margin: 18px 0 20px;
-    padding: 32px;
-    border-radius: 10px;
-    border: 1px dashed #b38cff;
-    background: radial-gradient(circle at top, #181327, #07050b);
-    text-align: center;
-    cursor: pointer;
-    font-size: 1.1rem;
-    transition: 0.25s;
-}
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
 
-.upload-box:hover {
-    transform: scale(1.03);
-    box-shadow: 0 0 16px #b38cff;
-}
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
 
-/* Labels & inputs */
-label {
-    margin-top: 14px;
-    display: block;
-    font-family: "Cinzel", serif;
-    color: #c49dff;
-    font-size: 0.98rem;
-}
+        /* Upload box */
+        .upload-box {
+            margin: 18px 0 20px;
+            padding: 32px;
+            border-radius: 10px;
+            border: 1px dashed #b38cff;
+            background: radial-gradient(circle at top, #181327, #07050b);
+            text-align: center;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: 0.25s;
+        }
 
-input, select {
-    width: 100%;
-    padding: 11px;
-    margin-top: 6px;
-    border-radius: 7px;
-    border: 1px solid #2d2640;
-    background: #100e17;
-    color: #f5f0ff;
-    font-size: 0.95rem;
-    transition: 0.2s;
-}
+        .upload-box:hover {
+            transform: scale(1.03);
+            box-shadow: 0 0 16px #b38cff;
+        }
 
-input:focus, select:focus {
-    outline: none;
-    box-shadow: 0 0 10px #9b5cff;
-    border-color: #9b5cff;
-}
+        /* Labels & inputs */
+        label {
+            margin-top: 14px;
+            display: block;
+            font-family: "Cinzel", serif;
+            color: #c49dff;
+            font-size: 0.98rem;
+        }
 
-/* Process button */
-.btn {
-    width: 100%;
-    padding: 12px;
-    margin-top: 22px;
-    border-radius: 9px;
-    border: none;
-    background: linear-gradient(90deg, #b57bff, #7c4dff);
-    color: white;
-    font-family: "Cinzel", serif;
-    font-size: 1.2rem;
-    cursor: pointer;
-    letter-spacing: 0.05em;
-    transition: 0.25s;
-}
+        input,
+        select {
+            width: 100%;
+            padding: 11px;
+            margin-top: 6px;
+            border-radius: 7px;
+            border: 1px solid #2d2640;
+            background: #100e17;
+            color: #f5f0ff;
+            font-size: 0.95rem;
+            transition: 0.2s;
+        }
 
-.btn:hover {
-    transform: scale(1.04);
-    box-shadow: 0 0 18px #b57bff;
-}
+        input:focus,
+        select:focus {
+            outline: none;
+            box-shadow: 0 0 10px #9b5cff;
+            border-color: #9b5cff;
+        }
 
-/* Progress bar (simple, stays on base page) */
-#progressBar {
-    width: 0%;
-    height: 10px;
-    background: linear-gradient(90deg, #b57bff, #7c4dff);
-    border-radius: 12px;
-    margin-top: 14px;
-    display: none;
-    box-shadow: 0 0 10px #9b5cff;
-    transition: width 0.5s ease;
-}
+        /* Process button */
+        .btn {
+            width: 100%;
+            padding: 12px;
+            margin-top: 22px;
+            border-radius: 9px;
+            border: none;
+            background: linear-gradient(90deg, #b57bff, #7c4dff);
+            color: white;
+            font-family: "Cinzel", serif;
+            font-size: 1.2rem;
+            cursor: pointer;
+            letter-spacing: 0.05em;
+            transition: 0.25s;
+        }
 
-/* Console box */
-.console-box {
-    background: #05040a;
-    border-radius: 10px;
-    border: 1px solid #201a32;
-    margin-top: 22px;
-    padding: 12px;
-    font-family: monospace;
-    font-size: 0.88rem;
-    height: 130px;
-    overflow-y: auto;
-    box-shadow: inset 0 0 12px rgba(155,92,255,0.25);
-}
+        .btn:hover {
+            transform: scale(1.04);
+            box-shadow: 0 0 18px #b57bff;
+        }
 
-/* Results section (placeholder, for later integration) */
-#results {
-    display: none;
-    margin-top: 22px;
-    padding: 12px 8px;
-}
+        /* Progress bar (simple, stays on base page) */
+        #progressBar {
+            width: 0%;
+            height: 10px;
+            background: linear-gradient(90deg, #b57bff, #7c4dff);
+            border-radius: 12px;
+            margin-top: 14px;
+            display: none;
+            box-shadow: 0 0 10px #9b5cff;
+            transition: width 0.5s ease;
+        }
 
-/* Download button style (when you wire results later) */
-.download-btn {
-    display: inline-block;
-    padding: 10px 16px;
-    margin: 6px 6px 0 0;
-    border-radius: 8px;
-    border: 1px solid #b57bff;
-    color: #e3d5ff;
-    text-decoration: none;
-    font-family: "Cinzel", serif;
-    font-size: 0.95rem;
-    background: #130f20;
-    transition: 0.25s;
-    position: relative;
-    overflow: hidden;
-}
+        /* Console box */
+        .console-box {
+            background: #05040a;
+            border-radius: 10px;
+            border: 1px solid #201a32;
+            margin-top: 22px;
+            padding: 12px;
+            font-family: monospace;
+            font-size: 0.88rem;
+            height: 130px;
+            overflow-y: auto;
+            box-shadow: inset 0 0 12px rgba(155, 92, 255, 0.25);
+        }
 
-.download-btn:hover {
-    background: #b57bff;
-    color: #160f28;
-    box-shadow: 0 0 14px #b57bff;
-    transform: scale(1.03);
-}
+        /* Results section (placeholder, for later integration) */
+        #results {
+            display: none;
+            margin-top: 22px;
+            padding: 12px 8px;
+        }
 
-.download-btn:active::after {
-    content: "";
-    position: absolute;
-    width: 280%;
-    height: 280%;
-    background: rgba(255,255,255,0.4);
-    top: -90%;
-    left: -90%;
-    transform: scale(0);
-    border-radius: 50%;
-    animation: ripple 0.35s ease-out forwards;
-}
+        /* Download button style (when you wire results later) */
+        .download-btn {
+            display: inline-block;
+            padding: 10px 16px;
+            margin: 6px 6px 0 0;
+            border-radius: 8px;
+            border: 1px solid #b57bff;
+            color: #e3d5ff;
+            text-decoration: none;
+            font-family: "Cinzel", serif;
+            font-size: 0.95rem;
+            background: #130f20;
+            transition: 0.25s;
+            position: relative;
+            overflow: hidden;
+        }
 
-@keyframes ripple {
-    to { transform: scale(1); opacity: 0; }
-}
+        .download-btn:hover {
+            background: #b57bff;
+            color: #160f28;
+            box-shadow: 0 0 14px #b57bff;
+            transform: scale(1.03);
+        }
 
-/* ============ PROCESSING OVERLAY (PURPLE NEON, L-STYLE) ============ */
-#processingOverlay {
-    position: fixed;
-    inset: 0;
-    background: radial-gradient(circle at top, #26193f 0%, #050308 55%, #000 100%);
-    display: none;
-    align-items: center;
-    justify-content: center;
-    z-index: 999;
-}
+        .download-btn:active::after {
+            content: "";
+            position: absolute;
+            width: 280%;
+            height: 280%;
+            background: rgba(255, 255, 255, 0.4);
+            top: -90%;
+            left: -90%;
+            transform: scale(0);
+            border-radius: 50%;
+            animation: ripple 0.35s ease-out forwards;
+        }
 
-/* Center card */
-.processing-card {
-    width: 260px;
-    max-width: 80%;
-    text-align: center;
-}
+        @keyframes ripple {
+            to {
+                transform: scale(1);
+                opacity: 0;
+            }
+        }
 
-/* Neon circle + silhouette wrapper */
-.neon-circle {
-    width: 180px;
-    height: 180px;
-    margin: 0 auto 16px;
-    border-radius: 50%;
-    border: 2px solid #9b5cff;
-    box-shadow: 0 0 25px #9b5cff;
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    animation: pulseNeon 2.4s infinite ease-in-out;
-}
+        /* ============ PROCESSING OVERLAY (PURPLE NEON, L-STYLE) ============ */
+        #processingOverlay {
+            position: fixed;
+            inset: 0;
+            background: radial-gradient(circle at top, #26193f 0%, #050308 55%, #000 100%);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 999;
+        }
 
-@keyframes pulseNeon {
-    0%   { box-shadow: 0 0 10px #9b5cff; }
-    50%  { box-shadow: 0 0 28px #c9a6ff; }
-    100% { box-shadow: 0 0 10px #9b5cff; }
-}
+        /* Center card */
+        .processing-card {
+            width: 260px;
+            max-width: 80%;
+            text-align: center;
+        }
 
-/* Sitting detective silhouette (L-inspired posture) */
-.detective-silhouette {
-    width: 90px;
-    height: 120px;
-    position: relative;
-}
+        /* Neon circle + silhouette wrapper */
+        .neon-circle {
+            width: 180px;
+            height: 180px;
+            margin: 0 auto 16px;
+            border-radius: 50%;
+            border: 2px solid #9b5cff;
+            box-shadow: 0 0 25px #9b5cff;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: pulseNeon 2.4s infinite ease-in-out;
+        }
 
-/* Head */
-.detective-silhouette::before {
-    content: "";
-    position: absolute;
-    top: 8px;
-    left: 26px;
-    width: 34px;
-    height: 34px;
-    background: #000;
-    border-radius: 50%;
-    box-shadow: 0 0 8px #000;
-}
+        @keyframes pulseNeon {
+            0% {
+                box-shadow: 0 0 10px #9b5cff;
+            }
 
-/* Body / legs (sitting forward) */
-.detective-silhouette::after {
-    content: "";
-    position: absolute;
-    top: 32px;
-    left: 14px;
-    width: 64px;
-    height: 72px;
-    background: #000;
-    border-radius: 40px 40px 30px 30px;
-    transform: skewX(-10deg);
-    box-shadow: 0 0 10px #000;
-}
+            50% {
+                box-shadow: 0 0 28px #c9a6ff;
+            }
 
-/* Glow behind silhouette */
-.neon-circle::after {
-    content: "";
-    position: absolute;
-    inset: 12px;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(155,92,255,0.4), transparent 60%);
-    filter: blur(6px);
-}
+            100% {
+                box-shadow: 0 0 10px #9b5cff;
+            }
+        }
 
-/* Processing text */
-.processing-title {
-    font-family: "Cinzel", serif;
-    font-size: 1.15rem;
-    letter-spacing: 0.08em;
-    margin-bottom: 6px;
-}
+        /* Sitting detective silhouette (L-inspired posture) */
+        .detective-silhouette {
+            width: 90px;
+            height: 120px;
+            position: relative;
+        }
 
-.processing-sub {
-    font-size: 0.9rem;
-    color: #d1c4ff;
-}
+        /* Head */
+        .detective-silhouette::before {
+            content: "";
+            position: absolute;
+            top: 8px;
+            left: 26px;
+            width: 34px;
+            height: 34px;
+            background: #000;
+            border-radius: 50%;
+            box-shadow: 0 0 8px #000;
+        }
 
-/* Dots animation */
-.dots::after {
-    content: "...";
-    animation: dots 1.2s infinite;
-}
+        /* Body / legs (sitting forward) */
+        .detective-silhouette::after {
+            content: "";
+            position: absolute;
+            top: 32px;
+            left: 14px;
+            width: 64px;
+            height: 72px;
+            background: #000;
+            border-radius: 40px 40px 30px 30px;
+            transform: skewX(-10deg);
+            box-shadow: 0 0 10px #000;
+        }
 
-@keyframes dots {
-    0%   { content: ""; }
-    33%  { content: "."; }
-    66%  { content: ".."; }
-    100% { content: "..."; }
-}
+        /* Glow behind silhouette */
+        .neon-circle::after {
+            content: "";
+            position: absolute;
+            inset: 12px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(155, 92, 255, 0.4), transparent 60%);
+            filter: blur(6px);
+        }
 
-/* Mini progress list */
-.processing-steps {
-    margin-top: 14px;
-    font-size: 0.85rem;
-    color: #bda5ff;
-    text-align: left;
-}
+        /* Processing text */
+        .processing-title {
+            font-family: "Cinzel", serif;
+            font-size: 1.15rem;
+            letter-spacing: 0.08em;
+            margin-bottom: 6px;
+        }
 
-.processing-steps li {
-    margin: 3px 0;
-}
+        .processing-sub {
+            font-size: 0.9rem;
+            color: #d1c4ff;
+        }
 
-/* Soft fade-in for overlay */
-@keyframes overlayFadeIn {
-    from { opacity: 0; transform: translateY(16px); }
-    to   { opacity: 1; transform: translateY(0); }
-}
-</style>
+        /* Dots animation */
+        .dots::after {
+            content: "...";
+            animation: dots 1.2s infinite;
+        }
+
+        @keyframes dots {
+            0% {
+                content: "";
+            }
+
+            33% {
+                content: ".";
+            }
+
+            66% {
+                content: "..";
+            }
+
+            100% {
+                content: "...";
+            }
+        }
+
+        /* Mini progress list */
+        .processing-steps {
+            margin-top: 14px;
+            font-size: 0.85rem;
+            color: #bda5ff;
+            text-align: left;
+        }
+
+        .processing-steps li {
+            margin: 3px 0;
+        }
+
+        /* Soft fade-in for overlay */
+        @keyframes overlayFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(16px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-<h1 class="title">VocalX</h1>
+    <h1 class="title">VocalX</h1>
 
-<div class="container">
-    <form id="uploadForm" method="POST" enctype="multipart/form-data" action="/process_upload" onsubmit="startProcessing(event)">
-        <div class="upload-box" onclick="document.getElementById('file').click()">
-            Click or tap here to upload audio / video
+    <div class="container">
+        <form id="uploadForm" method="POST" enctype="multipart/form-data" action="/process_upload"
+            onsubmit="startProcessing(event)">
+            <div class="upload-box" onclick="document.getElementById('file').click()">
+                Click or tap here to upload audio / video
+            </div>
+            <input type="file" id="file" name="file" style="display:none">
+
+            <label>YouTube Link</label>
+            <input type="text" name="youtube_link" placeholder="Paste YouTube URL…">
+
+            <div style="display: flex; gap: 10px; margin-top: 14px;">
+                <div style="flex: 1;">
+                    <label style="margin-top: 0;">Start Time (Optional)</label>
+                    <input type="text" name="start_time" placeholder="e.g. 0:00">
+                </div>
+                <div style="flex: 1;">
+                    <label style="margin-top: 0;">End Time (Optional)</label>
+                    <input type="text" name="end_time" placeholder="e.g. 1:30">
+                </div>
+            </div>
+
+            <label>Pitch Mode</label>
+            <select name="pitch_mode">
+                <option value="none">None (0)</option>
+                <option value="mild">Mild (+1)</option>
+                <option value="moderate">Moderate (+2)</option>
+                <option value="strong">Strong (+3)</option>
+                <option value="ultra">Ultra (+5)</option>
+                <option value="deep">Deep (-1)</option>
+                <option value="lowered">Lowered (-3)</option>
+                <option value="demonic">Demonic (-5)</option>
+            </select>
+
+            <label>Output Format</label>
+            <select name="output_type">
+                <option value="mp3">MP3 – Clean Vocals</option>
+                <option value="wav">WAV – Studio Quality</option>
+                <option value="mp4_vocals">MP4 – Video + Clean Vocals</option>
+                <option value="mp4_instrumental">MP4 – Video + Instrumental</option>
+                <option value="stems">STEM Pack</option>
+                <option value="zip_all">ZIP – All Outputs</option>
+            </select>
+
+            <button type="submit" class="btn">PROCESS</button>
+
+            <div id="progressBar"></div>
+        </form>
+
+        <div class="console-box" id="console">
+            [LOG] Ready for upload…
         </div>
-        <input type="file" id="file" name="file" style="display:none">
 
-        <label>YouTube Link</label>
-        <input type="text" name="youtube_link" placeholder="Paste YouTube URL…">
-
-        <label>Pitch Mode</label>
-        <select name="pitch_mode">
-            <option value="none">None (0)</option>
-            <option value="mild">Mild (+1)</option>
-            <option value="moderate">Moderate (+2)</option>
-            <option value="strong">Strong (+3)</option>
-            <option value="ultra">Ultra (+5)</option>
-            <option value="deep">Deep (-1)</option>
-            <option value="lowered">Lowered (-3)</option>
-            <option value="demonic">Demonic (-5)</option>
-        </select>
-
-        <label>Output Format</label>
-        <select name="output_type">
-            <option value="mp3">MP3 – Clean Vocals</option>
-            <option value="wav">WAV – Studio Quality</option>
-            <option value="mp4_vocals">MP4 – Video + Clean Vocals</option>
-            <option value="mp4_instrumental">MP4 – Video + Instrumental</option>
-            <option value="stems">STEM Pack</option>
-            <option value="zip_all">ZIP – All Outputs</option>
-        </select>
-
-        <button type="submit" class="btn">PROCESS</button>
-
-        <div id="progressBar"></div>
-    </form>
-
-    <div class="console-box" id="console">
-        [LOG] Ready for upload…
+        <div id="results">
+            <h3 style="font-family:'Cinzel',serif;color:#c49dff;margin-bottom:8px;">Downloads</h3>
+            <div id="downloadLinks">
+                <!-- When you wire backend to return links, render them here -->
+            </div>
+        </div>
     </div>
 
-    <div id="results">
-        <h3 style="font-family:'Cinzel',serif;color:#c49dff;margin-bottom:8px;">Downloads</h3>
-        <div id="downloadLinks">
-            <!-- When you wire backend to return links, render them here -->
+    <!-- PURPLE NEON PROCESSING OVERLAY -->
+    <div id="processingOverlay">
+        <div class="processing-card" id="processingCard">
+            <div class="neon-circle">
+                <div class="detective-silhouette"></div>
+            </div>
+            <div class="processing-title dots">PROCESSING</div>
+            <div class="processing-sub">Your audio is being analyzed by the engine.</div>
+            <ul class="processing-steps">
+                <li>Initializing vocal engine…</li>
+                <li>Separating vocals and instruments…</li>
+                <li>Applying pitch transformation…</li>
+                <li>Preparing final export…</li>
+            </ul>
         </div>
     </div>
-</div>
 
-<!-- PURPLE NEON PROCESSING OVERLAY -->
-<div id="processingOverlay">
-    <div class="processing-card" id="processingCard">
-        <div class="neon-circle">
-            <div class="detective-silhouette"></div>
-        </div>
-        <div class="processing-title dots">PROCESSING</div>
-        <div class="processing-sub">Your audio is being analyzed by the engine.</div>
-        <ul class="processing-steps">
-            <li>Initializing vocal engine…</li>
-            <li>Separating vocals and instruments…</li>
-            <li>Applying pitch transformation…</li>
-            <li>Preparing final export…</li>
-        </ul>
-    </div>
-</div>
-
-<script>
-function logConsole(msg) {
-    const c = document.getElementById("console");
-    c.innerHTML += "<br>• " + msg;
-    c.scrollTop = c.scrollHeight;
-}
-
-function startProcessing(event) {
-    // Let the form submit normally to Flask,
-    // but show processing overlay + fake progress for UX.
-    const overlay = document.getElementById("processingOverlay");
-    const progressBar = document.getElementById("progressBar");
-    overlay.style.display = "flex";
-    document.getElementById("processingCard").style.animation = "overlayFadeIn 0.4s ease";
-
-    progressBar.style.display = "block";
-    animateProgress();
-
-    logConsole("Upload started…");
-    // DO NOT preventDefault here, we want the real backend to handle the upload.
-    // If later you switch to AJAX, then you can preventDefault and call fetch().
-}
-
-function animateProgress() {
-    const bar = document.getElementById("progressBar");
-    let width = 0;
-
-    const timer = setInterval(() => {
-        if (width >= 98) {
-            clearInterval(timer);
-            // Final stretch will finish when backend responds (page changes or reloads).
-        } else {
-            width += 5;
-            bar.style.width = width + "%";
-
-            if (width === 10) logConsole("Parsing input file / link…");
-            if (width === 35) logConsole("Extracting raw audio stream…");
-            if (width === 60) logConsole("Running AI separation (Demucs)…");
-            if (width === 80) logConsole("Applying pitch & exporting…");
+    <script>
+        function logConsole(msg) {
+            const c = document.getElementById("console");
+            c.innerHTML += "<br>• " + msg;
+            c.scrollTop = c.scrollHeight;
         }
-    }, 450);
-}
-</script>
+
+        function startProcessing(event) {
+            event.preventDefault(); // Intercept the form!
+
+            const overlay = document.getElementById("processingOverlay");
+            const progressBar = document.getElementById("progressBar");
+            const resultsDiv = document.getElementById("results");
+            const downloadLinksDiv = document.getElementById("downloadLinks");
+
+            // Reset UI
+            resultsDiv.style.display = "none";
+            downloadLinksDiv.innerHTML = "";
+
+            overlay.style.display = "flex";
+            document.getElementById("processingCard").style.animation = "overlayFadeIn 0.4s ease";
+
+            progressBar.style.display = "block";
+            animateProgress();
+
+            logConsole("Upload started…");
+
+            // Gather form data and send AJAX request
+            const form = document.getElementById("uploadForm");
+            const formData = new FormData(form);
+
+            fetch("/process_upload", {
+                method: "POST",
+                body: formData
+            })
+                .then(response => response.json())
+                .then(data => {
+                    overlay.style.display = "none"; // Hide processing screen
+                    progressBar.style.display = "none";
+
+                    if (data.error) {
+                        logConsole("Error: " + data.error);
+                        alert("Processing failed: " + data.error);
+                        return;
+                    }
+
+                    logConsole("Processing complete!");
+                    resultsDiv.style.display = "block";
+
+                    // Generate Audio Players and Download Buttons
+                    data.outputs.forEach(output => {
+                        const wrapper = document.createElement("div");
+                        wrapper.style.marginBottom = "20px";
+                        wrapper.style.background = "#130f20";
+                        wrapper.style.padding = "15px";
+                        wrapper.style.borderRadius = "10px";
+                        wrapper.style.border = "1px solid #2d2640";
+
+                        const label = document.createElement("h4");
+                        label.style.marginTop = "0";
+                        label.style.color = "#c49dff";
+                        label.innerText = output.label.toUpperCase();
+                        wrapper.appendChild(label);
+
+                        // Audio Player for Preview
+                        const audio = document.createElement("audio");
+                        audio.controls = true;
+                        audio.style.width = "100%";
+                        audio.style.height = "40px";
+                        audio.style.marginBottom = "10px";
+                        audio.style.outline = "none";
+                        audio.src = output.url;
+                        wrapper.appendChild(audio);
+
+                        // Download Button
+                        const btn = document.createElement("a");
+                        btn.href = output.url;
+                        btn.className = "download-btn";
+                        btn.innerText = "⇩ Download";
+                        btn.setAttribute("download", "");
+                        wrapper.appendChild(btn);
+
+                        downloadLinksDiv.appendChild(wrapper);
+                    });
+
+                    // Scroll to results
+                    resultsDiv.scrollIntoView({ behavior: "smooth" });
+                })
+                .catch(error => {
+                    overlay.style.display = "none";
+                    progressBar.style.display = "none";
+                    logConsole("Network error occurred.");
+                    alert("A network error occurred: " + error);
+                });
+        }
+
+        function animateProgress() {
+            const bar = document.getElementById("progressBar");
+            bar.style.width = "0%";
+            let width = 0;
+
+            const timer = setInterval(() => {
+                if (width >= 98 || document.getElementById("processingOverlay").style.display === "none") {
+                    clearInterval(timer);
+                } else {
+                    // Speed up the visual bar, let it sit at 98% until backend responds
+                    width += (98 - width) * 0.05;
+                    bar.style.width = width + "%";
+
+                    if (Math.round(width) === 10) logConsole("Parsing input file / link…");
+                    if (Math.round(width) === 35) logConsole("Extracting raw audio stream…");
+                    if (Math.round(width) === 60) logConsole("Running AI separation (Demucs)…");
+                    if (Math.round(width) === 80) logConsole("Applying pitch & exporting…");
+                }
+            }, 450);
+        }
+    </script>
 
 </body>
+
 </html>

@@ -11,16 +11,22 @@ SEPARATED_DIR = "separated/htdemucs"
 os.makedirs(UPLOAD_DIR, exist_ok=True)
 os.makedirs(SEPARATED_DIR, exist_ok=True)
 
-def separate_stems(original_path):
+def separate_stems(original_path, start_time=None, end_time=None):
     # Create a temporary clean filename
     uid = str(uuid.uuid4())
     temp_wav = f"{UPLOAD_DIR}/{uid}.wav"
 
+    # Build FFmpeg command to convert AND trim if timestamps exist
+    ffmpeg_cmd = ["ffmpeg", "-y"]
+    if start_time and start_time.strip():
+        ffmpeg_cmd.extend(["-ss", start_time.strip()])
+    if end_time and end_time.strip():
+        ffmpeg_cmd.extend(["-to", end_time.strip()])
+    
+    ffmpeg_cmd.extend(["-i", original_path, "-ac", "2", "-ar", "44100", temp_wav])
+
     # Convert ANY uploaded file to WAV for Demucs
-    subprocess.run(
-        ["ffmpeg", "-y", "-i", original_path, "-ac", "2", "-ar", "44100", temp_wav],
-        capture_output=True, text=True
-    )
+    subprocess.run(ffmpeg_cmd, capture_output=True, text=True)
 
     # After conversion, delete the raw upload immediately
     if os.path.exists(original_path):

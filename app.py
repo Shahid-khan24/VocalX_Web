@@ -31,6 +31,8 @@ def process_upload():
         youtube_link = request.form.get("youtube_link")
         pitch_mode = request.form.get("pitch_mode")
         output_type = request.form.get("output_type")
+        start_time = request.form.get("start_time")
+        end_time = request.form.get("end_time")
 
         # Ensure working folders exist
         os.makedirs("uploads", exist_ok=True)
@@ -50,7 +52,7 @@ def process_upload():
             filepath = save_path
 
         # ====== RUN MAIN VOCALX PROCESSING ======
-        output_files = process_file(filepath, output_type, pitch_mode)
+        output_files = process_file(filepath, output_type, pitch_mode, start_time, end_time)
 
         # ====== BUILD JSON RESPONSE ======
         response_data = {
