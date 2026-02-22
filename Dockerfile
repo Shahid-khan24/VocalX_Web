@@ -32,6 +32,10 @@ RUN chmod -R 777 /app/uploads /app/separated /app/results /app/output /app/temp 
 # Expose the port that the app runs on
 EXPOSE 7860
 
+# Limit threads so torch doesn't eat memory
+ENV OMP_NUM_THREADS=1
+ENV MKL_NUM_THREADS=1
+
 # Run the web service on container startup using gunicorn.
 # Hugging Face Spaces default port is 7860
-CMD exec gunicorn --bind 0.0.0.0:7860 --workers 1 --threads 8 --timeout 0 app:app
+CMD exec gunicorn --bind 0.0.0.0:7860 --workers 1 --threads 2 --timeout 0 app:app

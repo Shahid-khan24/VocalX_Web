@@ -26,8 +26,8 @@ def separate_stems(original_path):
     if os.path.exists(original_path):
         os.remove(original_path)
 
-    # Run Demucs
-    cmd = ["demucs", "--two-stems=vocals", temp_wav]
+    # Run Demucs with single job to prevent out of memory
+    cmd = ["demucs", "--two-stems=vocals", "-j", "1", temp_wav]
     result = subprocess.run(cmd, capture_output=True, text=True)
 
     if result.returncode != 0:
