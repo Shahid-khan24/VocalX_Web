@@ -36,6 +36,11 @@ EXPOSE 7860
 ENV OMP_NUM_THREADS=1
 ENV MKL_NUM_THREADS=1
 
+# Force Python's DNS resolver to prefer IPv4 (fixes yt-dlp DNS issues in HF spaces)
+ENV PYTHONASYNCIODEBUG=1
+ENV PYTHONFAULTHANDLER=1
+ENV YTDLP_NO_LAZY_EXTRACTORS=1
+
 # Run the web service on container startup using gunicorn.
 # Hugging Face Spaces default port is 7860
 CMD exec gunicorn --bind 0.0.0.0:7860 --workers 1 --threads 2 --timeout 0 app:app

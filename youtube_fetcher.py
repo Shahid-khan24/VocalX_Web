@@ -11,10 +11,11 @@ def download_youtube(url):
     output_path = f"uploads/{unique_id}.webm"
 
     ydl_opts = {
-        "format": "251/bestaudio/best",   # audio-only, stable
+        "format": "bestaudio/best",
         "outtmpl": output_path,
         "quiet": True,
         "no_warnings": True,
+        "source_address": "0.0.0.0", # Bind to ipv4
     }
 
     try:
