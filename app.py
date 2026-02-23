@@ -30,9 +30,14 @@ def favicon():
 
 
 # ========= BG WORKER =========
-def run_job(job_id, filepath, output_type, pitch_mode, start_time, end_time):
+def run_job(job_id, youtube_link, filepath, output_type, pitch_mode, start_time, end_time):
     try:
         jobs[job_id]["status"] = "processing"
+
+        # Download YouTube if needed (heavy - do inside thread)
+        if youtube_link:
+            filepath = download_youtube(youtube_link)
+
         output_files = process_file(filepath, output_type, pitch_mode, start_time, end_time)
         outputs = []
         for label, filename in output_files.items():
@@ -49,29 +54,34 @@ def run_job(job_id, filepath, output_type, pitch_mode, start_time, end_time):
 @app.route("/process_upload", methods=["POST"])
 def process_upload():
     try:
-        youtube_link = request.form.get("youtube_link")
+        youtube_link = request.form.get("youtube_link", "").strip()
         pitch_mode = request.form.get("pitch_mode")
         output_type = request.form.get("output_type")
         start_time = request.form.get("start_time")
         end_time = request.form.get("end_time")
 
         os.makedirs("uploads", exist_ok=True)
-        os.makedirs("results", exist_ok=True)
+        os.makedirs("output", exist_ok=True)
 
-        if youtube_link and len(youtube_link.strip()) > 5:
-            filepath = download_youtube(youtube_link)
-        else:
+        filepath = None
+        if not (youtube_link and len(youtube_link) > 5):
+            # Save uploaded file synchronously (fast - just I/O)
             uploaded = request.files.get("file")
             if not uploaded:
-                return jsonify({"error": "No input file provided"}), 400
+                return jsonify({"error": "No input file or YouTube link provided"}), 400
             save_path = os.path.join("uploads", uploaded.filename)
             uploaded.save(save_path)
             filepath = save_path
+            youtube_link = None  # already handled
 
-        # Create a job and run it in a background thread
+        # Queue the job - return immediately!
         job_id = str(uuid.uuid4())
         jobs[job_id] = {"status": "queued", "result": None, "error": None}
-        t = threading.Thread(target=run_job, args=(job_id, filepath, output_type, pitch_mode, start_time, end_time), daemon=True)
+        t = threading.Thread(
+            target=run_job,
+            args=(job_id, youtube_link, filepath, output_type, pitch_mode, start_time, end_time),
+            daemon=True
+        )
         t.start()
 
         return jsonify({"job_id": job_id})
