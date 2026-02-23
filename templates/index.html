@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>HEIL HITLER</title>
+    <title>VocalX – AI Vocal Separator</title>
 
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Inter:wght@300;600&display=swap"
         rel="stylesheet">
@@ -503,96 +503,109 @@
             c.scrollTop = c.scrollHeight;
         }
 
+        function showResults(outputs) {
+            const overlay = document.getElementById("processingOverlay");
+            const progressBar = document.getElementById("progressBar");
+            const resultsDiv = document.getElementById("results");
+            const downloadLinksDiv = document.getElementById("downloadLinks");
+
+            overlay.style.display = "none";
+            progressBar.style.display = "none";
+            resultsDiv.style.display = "block";
+            logConsole("✅ Processing complete!");
+
+            outputs.forEach((output, index) => {
+                const wrapper = document.createElement("div");
+                wrapper.style.marginBottom = "20px";
+                wrapper.style.background = "#130f20";
+                wrapper.style.padding = "15px";
+                wrapper.style.borderRadius = "10px";
+                wrapper.style.border = "1px solid #2d2640";
+                wrapper.style.opacity = "0";
+                wrapper.style.animation = `popIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards ${index * 0.15}s`;
+
+                const label = document.createElement("h4");
+                label.style.marginTop = "0";
+                label.style.color = "#c49dff";
+                label.innerText = output.label.toUpperCase();
+                wrapper.appendChild(label);
+
+                const audio = document.createElement("audio");
+                audio.controls = true;
+                audio.style.width = "100%";
+                audio.style.marginBottom = "10px";
+                audio.src = output.url;
+                wrapper.appendChild(audio);
+
+                const btn = document.createElement("a");
+                btn.href = output.url;
+                btn.className = "download-btn";
+                btn.innerText = "⇩ Download";
+                btn.setAttribute("download", "");
+                wrapper.appendChild(btn);
+
+                downloadLinksDiv.appendChild(wrapper);
+            });
+
+            resultsDiv.scrollIntoView({ behavior: "smooth" });
+        }
+
+        function pollJob(jobId) {
+            fetch("/status/" + jobId)
+                .then(r => r.json())
+                .then(data => {
+                    if (data.status === "done") {
+                        showResults(data.result);
+                    } else if (data.status === "error") {
+                        document.getElementById("processingOverlay").style.display = "none";
+                        document.getElementById("progressBar").style.display = "none";
+                        logConsole("❌ Error: " + data.error);
+                        alert("Processing failed: " + data.error);
+                    } else {
+                        // Still processing — poll again in 3 seconds
+                        setTimeout(() => pollJob(jobId), 3000);
+                    }
+                })
+                .catch(() => setTimeout(() => pollJob(jobId), 3000));
+        }
+
         function startProcessing(event) {
-            event.preventDefault(); // Intercept the form!
+            event.preventDefault();
 
             const overlay = document.getElementById("processingOverlay");
             const progressBar = document.getElementById("progressBar");
             const resultsDiv = document.getElementById("results");
             const downloadLinksDiv = document.getElementById("downloadLinks");
 
-            // Reset UI
             resultsDiv.style.display = "none";
             downloadLinksDiv.innerHTML = "";
 
             overlay.style.display = "flex";
             document.getElementById("processingCard").style.animation = "overlayFadeIn 0.4s ease";
-
             progressBar.style.display = "block";
             animateProgress();
-
             logConsole("Upload started…");
 
-            // Gather form data and send AJAX request
-            const form = document.getElementById("uploadForm");
-            const formData = new FormData(form);
+            const formData = new FormData(document.getElementById("uploadForm"));
 
-            fetch("/process_upload", {
-                method: "POST",
-                body: formData
-            })
-                .then(response => response.json())
+            fetch("/process_upload", { method: "POST", body: formData })
+                .then(r => r.json())
                 .then(data => {
-                    overlay.style.display = "none"; // Hide processing screen
-                    progressBar.style.display = "none";
-
                     if (data.error) {
-                        logConsole("Error: " + data.error);
-                        alert("Processing failed: " + data.error);
+                        overlay.style.display = "none";
+                        progressBar.style.display = "none";
+                        logConsole("❌ " + data.error);
+                        alert("Error: " + data.error);
                         return;
                     }
-
-                    logConsole("Processing complete!");
-                    resultsDiv.style.display = "block";
-
-                    // Generate Audio Players and Download Buttons
-                    data.outputs.forEach((output, index) => {
-                        const wrapper = document.createElement("div");
-                        wrapper.style.marginBottom = "20px";
-                        wrapper.style.background = "#130f20";
-                        wrapper.style.padding = "15px";
-                        wrapper.style.borderRadius = "10px";
-                        wrapper.style.border = "1px solid #2d2640";
-
-                        // Add Pop-in Staggered Animation
-                        wrapper.style.opacity = "0";
-                        wrapper.style.animation = `popIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards ${index * 0.15}s`;
-
-                        const label = document.createElement("h4");
-                        label.style.marginTop = "0";
-                        label.style.color = "#c49dff";
-                        label.innerText = output.label.toUpperCase();
-                        wrapper.appendChild(label);
-
-                        // Audio Player for Preview
-                        const audio = document.createElement("audio");
-                        audio.controls = true;
-                        audio.style.width = "100%";
-                        audio.style.height = "40px";
-                        audio.style.marginBottom = "10px";
-                        audio.style.outline = "none";
-                        audio.src = output.url;
-                        wrapper.appendChild(audio);
-
-                        // Download Button
-                        const btn = document.createElement("a");
-                        btn.href = output.url;
-                        btn.className = "download-btn";
-                        btn.innerText = "⇩ Download";
-                        btn.setAttribute("download", "");
-                        wrapper.appendChild(btn);
-
-                        downloadLinksDiv.appendChild(wrapper);
-                    });
-
-                    // Scroll to results
-                    resultsDiv.scrollIntoView({ behavior: "smooth" });
+                    logConsole("Job queued. Running AI separation…");
+                    pollJob(data.job_id);
                 })
-                .catch(error => {
+                .catch(err => {
                     overlay.style.display = "none";
                     progressBar.style.display = "none";
-                    logConsole("Network error occurred.");
-                    alert("A network error occurred: " + error);
+                    logConsole("Network error submitting job.");
+                    alert("Network error: " + err);
                 });
         }
 
@@ -600,21 +613,18 @@
             const bar = document.getElementById("progressBar");
             bar.style.width = "0%";
             let width = 0;
-
             const timer = setInterval(() => {
-                if (width >= 98 || document.getElementById("processingOverlay").style.display === "none") {
+                if (width >= 95 || document.getElementById("processingOverlay").style.display === "none") {
                     clearInterval(timer);
                 } else {
-                    // Speed up the visual bar, let it sit at 98% until backend responds
-                    width += (98 - width) * 0.05;
+                    width += (95 - width) * 0.02;
                     bar.style.width = width + "%";
-
                     if (Math.round(width) === 10) logConsole("Parsing input file / link…");
                     if (Math.round(width) === 35) logConsole("Extracting raw audio stream…");
                     if (Math.round(width) === 60) logConsole("Running AI separation (Demucs)…");
                     if (Math.round(width) === 80) logConsole("Applying pitch & exporting…");
                 }
-            }, 450);
+            }, 600);
         }
     </script>
 
